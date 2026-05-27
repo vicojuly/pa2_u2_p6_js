@@ -1,6 +1,7 @@
 package ec.edu.uce;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import ec.edu.uce.application.service.EstudianteService;
 import ec.edu.uce.application.service.ProfesorService;
@@ -19,9 +20,6 @@ public class Main {
     }
  
     public static class App implements QuarkusApplication {
-        
-        @Inject
-        private EstudianteService estudianteService;
 
         @Inject
         private ProfesorService profesorService;
@@ -29,49 +27,33 @@ public class Main {
         @Override
         public int run(String... args) {
 
-            /* 
-            System.out.println("*********SECCIÓN ESTUDIANTE*********");
-            Estudiante estudiante = new Estudiante();
-            estudiante.setNombre("Kevin");
-            estudiante.setApellido("Chicaiza");
-            estudiante.setGenero("F");
-            estudiante.setFechaNacimiento(LocalDate.of(2001, 5, 14));
-            System.out.println("Guardando estudiante: " + estudiante.getNombre() + " " + estudiante.getApellido());
-            this.estudianteService.guardar(estudiante);
+            System.out.println("Todos los profesores:");
+            List<Profesor> profTodos = this.profesorService.buscarTodos();
+            for (Profesor profesor : profTodos) {
+                System.out.println(profesor.getNombre() +" "+ profesor.getApellido() + " "+ profesor.getMateria());
+            }
 
-            System.out.println("Estudiante guardado exitosamente.");
+            System.out.println("***SELECCIONAR POR MATERIA***");
+            System.out.println("Computación: ");
+            List<Profesor> porMateria = this.profesorService.consultarPorMateria("Computación");
+            for (Profesor profesor : porMateria) {
+                System.out.println(profesor.getNombre() +" "+ profesor.getApellido() + " "+ profesor.getMateria());
+            }
 
-            Estudiante es1 = this.estudianteService.seleccionarPorId(1);
-            System.out.println("Estudiante SELECCIONADO: " + es1.getNombre() + " " + es1.getApellido());
+            System.out.println("Analisis: ");
+            List<Profesor> porMateria1 = this.profesorService.consultarPorMateria("Analisis");
+            for (Profesor profesor : porMateria1) {
+                System.out.println(profesor.getNombre() +" "+ profesor.getApellido() + " "+ profesor.getMateria());
+            }
 
-            Estudiante es2 = this.estudianteService.seleccionarPorId(2); 
-            es2.setNombre("Cristian");
-            estudianteService.actualizar(es2);
+            System.out.println("Profesor con teléfono '0987654321': ");
+            Profesor porfTelefono = this.profesorService.consultarPorTelefono("0987654321");
+            System.out.println(porfTelefono.getNombre() +" "+ porfTelefono.getApellido());
 
-            this.estudianteService.eliminar(1);
-            */
-
-            System.out.println("**********SECCIÓN PROFESOR**********");
-            Profesor profesor = new Profesor();
-            profesor.setNombre("Maria");
-            profesor.setApellido("Mendez");   
-            profesor.setGenero("F");
-            profesor.setMateria("Matemática");
-            System.out.println("Guardando profesor: " + profesor.getNombre() + " " + profesor.getApellido());
-            this.profesorService.guardar(profesor);
-
-            System.out.println("Profesor guardado exitosamente.");
-
-            Profesor profe1 = this.profesorService.seleccionarPorId(4);
-            System.out.println("Profesor SELECCIONADO: " + profe1.getNombre() + " " + profe1.getApellido());
-
-            Profesor profe2 = this.profesorService.seleccionarPorId(5); 
-            profe2.setNombre("Cristian");
-            profesorService.actualizar(profe2);
-            
-            boolean elmin = this.profesorService.eliminar(6);
-            System.out.println("Profesor eliminado: " + elmin);
-            return 0;
+            System.out.println("Profesor con correo 'crcayambe@uce.edu.ec': ");
+            Profesor profCorreo = this.profesorService.consultarPorCorreo("crcayambe@uce.edu.ec");
+            System.out.print(profCorreo.getNombre() +" "+ profCorreo.getApellido());
+           return 0;
         }
  
     }

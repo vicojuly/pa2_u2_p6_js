@@ -30,15 +30,24 @@ public class Profesor {
     @Column(name = "prof_genero")
     private String genero;
 
+    @Column(name = "prof_correo")
+    private String correo;
+
+    @Column(name = "prof_telefono")
+    private String telefono;
+
     public Profesor() {
     }
 
-    public Profesor(Integer id, String nombre, String apellido, String materia, String genero) {
+    public Profesor(Integer id, String nombre, String apellido, String materia, String genero, String correo,
+            String telefono) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.materia = materia;
         this.genero = genero;
+        this.correo = correo;
+        this.telefono = telefono;
     }
 
     public Integer getId() {
@@ -81,5 +90,31 @@ public class Profesor {
         this.genero = genero;
     }
 
-    
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return "Profesor:\n" +
+       "ID: " + id + "\n" +
+       "Nombre: " + nombre + "\n" +
+       "Apellido: " + apellido + "\n" +
+       "Materia: " + materia + "\n" +
+       "Género: " + genero + "\n" +
+       "Correo Institucional: " + correo+ "\n" +
+       "Teléfono: " + telefono;
+    }   
 }
