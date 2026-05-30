@@ -63,25 +63,13 @@ public class Main {
             System.out.println("Estudiante con cedula: "+ estCedula.toString());
             */
 
-            List<Estudiante> estudiantesF = this.estudianteService.consultarPorGenero("F");
-            for (Estudiante estudiante1 : estudiantesF) {
-                System.out.println("Estudiantes con genero F: " + estudiante1.toString());
+            List<Estudiante> estudiantesSelec = this.estudianteService.seleccionarTodosNative();
+            for (Estudiante estudiante1 : estudiantesSelec) {
+                System.out.println("Estudiantes: " + estudiante1.toString());
             }
-
-             List<Estudiante> estudiantesM = this.estudianteService.consultarPorGeneroTyped("M");
-            for (Estudiante estudiante1 : estudiantesM) {
-                System.out.println("Estudiantes con genero M: " + estudiante1.toString());
-            }
-
-            List<Estudiante> estudiantesFecha = this.estudianteService.consultarPorRangoFechas(LocalDate.of(2001, 01, 01), LocalDate.of(2005, 12, 15));
-            for (Estudiante estudiante1 : estudiantesFecha) {
-                System.out.println("Estudiantes con fecha entre 2001/01/01 a 2005/12/15: " + estudiante1.toString());
-            }
-
-            System.out.println("Total de estudiantes en la base de datos: " + this.estudianteService.seleccionarContarEstudiantes());
+            
             return 0;
-        
-        
+            
         }
     }
 }

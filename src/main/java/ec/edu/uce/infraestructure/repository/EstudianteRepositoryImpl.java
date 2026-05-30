@@ -106,9 +106,12 @@ private EntityManager em;
     
     }
 
-
-
-
-    
+    //NATIVE QUERY
+    @Override
+    @SuppressWarnings("unchecked") //quita la advertencia, solo es visual
+    public List<Estudiante> seleccionarTodosNative() {
+        Query myQuery = this.em.createNativeQuery("SELECT * FROM Estudiante", Estudiante.class);
+        return (List<Estudiante>) myQuery.getResultList();
+    }
 
 }

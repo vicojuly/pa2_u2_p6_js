@@ -24,4 +24,8 @@ public interface EstudianteRepository {
     public List<Estudiante> seleccionarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin);
 
     public Long seleccionarContar();
+
+    //NATIVE QUERY
+    public List <Estudiante> seleccionarTodosNative();
+    
     }
