@@ -27,15 +27,16 @@ public class Main {
 
             /*
             Estudiante estudiante = new Estudiante();
-            estudiante.setNombre("Maria");
-            estudiante.setApellido("Chicaiza");
-            estudiante.setGenero("F");
-            estudiante.setCedula("0500730049");
+            estudiante.setNombre("Mario");
+            estudiante.setApellido("Perez");
+            estudiante.setGenero("M");
+            estudiante.setCedula("0500730149");
             estudiante.setFechaNacimiento(LocalDate.of(2001, 5, 14));
             System.out.println("Guardando estudiante: " + estudiante.getNombre() + " " + estudiante.getApellido());
             this.estudianteService.guardar(estudiante);
 
             System.out.println("Estudiante guardado exitosamente.");
+            
             
             Estudiante es1 = this.estudianteService.seleccionarPorId(1);
             System.out.println("Estudiante SELECCIONADO: " + es1.getNombre() + " " + es1.getApellido());
@@ -45,7 +46,7 @@ public class Main {
             estudianteService.actualizar(es2);
 
             this.estudianteService.eliminar(1);
-            */
+            
 
             
             List<Estudiante> estudiantes = this.estudianteService.buscarTodos();
@@ -60,10 +61,28 @@ public class Main {
 
             Estudiante estCedula = this.estudianteService.consultarPorCedula("0503976441");
             System.out.println("Estudiante con cedula: "+ estCedula.toString());
-            
+            */
+
+            List<Estudiante> estudiantesF = this.estudianteService.consultarPorGenero("F");
+            for (Estudiante estudiante1 : estudiantesF) {
+                System.out.println("Estudiantes con genero F: " + estudiante1.toString());
+            }
+
+             List<Estudiante> estudiantesM = this.estudianteService.consultarPorGeneroTyped("M");
+            for (Estudiante estudiante1 : estudiantesM) {
+                System.out.println("Estudiantes con genero M: " + estudiante1.toString());
+            }
+
+            List<Estudiante> estudiantesFecha = this.estudianteService.consultarPorRangoFechas(LocalDate.of(2001, 01, 01), LocalDate.of(2005, 12, 15));
+            for (Estudiante estudiante1 : estudiantesFecha) {
+                System.out.println("Estudiantes con fecha entre 2001/01/01 a 2005/12/15: " + estudiante1.toString());
+            }
+
+            System.out.println("Total de estudiantes en la base de datos: " + this.estudianteService.seleccionarContarEstudiantes());
             return 0;
+        
+        
         }
- 
     }
 }
  

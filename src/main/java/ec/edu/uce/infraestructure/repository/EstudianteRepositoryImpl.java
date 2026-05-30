@@ -1,5 +1,6 @@
 package ec.edu.uce.infraestructure.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import ec.edu.uce.domain.model.Estudiante;
@@ -7,6 +8,7 @@ import ec.edu.uce.domain.repository.EstudianteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
@@ -41,6 +43,9 @@ private EntityManager em;
         this.em.remove(this.seleccionarPorId(id));
     }
 
+
+    //1. QUERY (JPQL QUERY)
+    //1.1 TYPEDQUERY
     @Override
     public List<Estudiante> seleccionarTodos() {
         TypedQuery<Estudiante> miQuery = this.em.createQuery(
@@ -69,7 +74,41 @@ private EntityManager em;
         //return miQuery.getResultList().get(0); 
         return miQuery.getResultList().getFirst();
     }
+
+    //1.2 NAMED QUERY
+    @Override
+    public List<Estudiante> seleccionarPorGenero(String genero) {
+        Query myQuery = this.em.createNamedQuery("Estudiante.buscarPorGenero");
+        myQuery.setParameter("genero", genero);
+        return (List<Estudiante>) myQuery.getResultList();
+    }
     
+    //para no hacer el cast
+    @Override
+    public List<Estudiante> seleccionarPorGeneroTyped(String genero) {
+        TypedQuery<Estudiante> myQuery = this.em.createNamedQuery("Estudiante.buscarPorGenero", Estudiante.class);
+        myQuery.setParameter("genero", genero);
+        return myQuery.getResultList();
+    }
+
+    @Override
+    public List<Estudiante> seleccionarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+        TypedQuery<Estudiante> myQuery = this.em.createNamedQuery("Estudiante.buscarPorRangoFecha", Estudiante.class);
+        myQuery.setParameter("inicio", fechaInicio);
+        myQuery.setParameter("fin", fechaFin);
+        return myQuery.getResultList();
+    }
+
+    @Override
+    public Long seleccionarContar() {
+        TypedQuery<Long> myQuery = this.em.createNamedQuery("Estudiante.contar", Long.class);
+        return myQuery.getSingleResult();
+    
+    }
+
+
+
+
     
 
 }
