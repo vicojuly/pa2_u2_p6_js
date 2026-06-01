@@ -54,4 +54,22 @@ public class ProfesorService {
     public Profesor consultarPorCorreo(String correo){
         return this.profesorRepository.seleccionarPorCorreo(correo);
     }
+
+    public List<Profesor> consultarPorGenero(String genero){
+        return this.profesorRepository.seleccionarPorGeneroNamed(genero);
+    }
+
+    public List<Profesor> consultarPorNombre(String nombre){
+        return this.profesorRepository.seleccionarPorNombreNamed(nombre);
+    }
+
+    public List<Profesor> consultarPorMateriaNamed(String materia){
+        return this.profesorRepository.seleccionarPorMateriaNamed(materia);
+    }
+
+    public Long contarProfesores(){
+        return this.profesorRepository.seleccionarContar();
+    }
+
+
 }

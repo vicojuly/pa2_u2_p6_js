@@ -1,11 +1,8 @@
 package ec.edu.uce;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import ec.edu.uce.application.service.EstudianteService;
 import ec.edu.uce.application.service.ProfesorService;
-import ec.edu.uce.domain.model.Estudiante;
 import ec.edu.uce.domain.model.Profesor;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
@@ -27,33 +24,28 @@ public class Main {
         @Override
         public int run(String... args) {
 
-            System.out.println("Todos los profesores:");
-            List<Profesor> profTodos = this.profesorService.buscarTodos();
-            for (Profesor profesor : profTodos) {
-                System.out.println(profesor.getNombre() +" "+ profesor.getApellido() + " "+ profesor.getMateria());
+            List<Profesor> profesoresMateria = this.profesorService.consultarPorMateriaNamed("Computación");
+            System.out.println("Profesores que imparten Computación:");
+            for (Profesor prof : profesoresMateria) {
+                System.out.println(prof.getNombre() + " "+ prof.getApellido()+ ", Materia: "+prof.getMateria());
             }
 
-            System.out.println("***SELECCIONAR POR MATERIA***");
-            System.out.println("Computación: ");
-            List<Profesor> porMateria = this.profesorService.consultarPorMateria("Computación");
-            for (Profesor profesor : porMateria) {
-                System.out.println(profesor.getNombre() +" "+ profesor.getApellido() + " "+ profesor.getMateria());
+            List<Profesor> profesoresGenero = this.profesorService.consultarPorGenero("F");
+            System.out.println("Profesores Femeninos:");
+            for (Profesor prof : profesoresGenero) {
+                System.out.println(prof.getNombre() + " "+prof.getApellido()+ ", Genero: "+ prof.getGenero());
             }
 
-            System.out.println("Analisis: ");
-            List<Profesor> porMateria1 = this.profesorService.consultarPorMateria("Analisis");
-            for (Profesor profesor : porMateria1) {
-                System.out.println(profesor.getNombre() +" "+ profesor.getApellido() + " "+ profesor.getMateria());
+            List<Profesor> profesoresNombre = this.profesorService.consultarPorNombre("Harry");
+            System.out.println("Profesores con nombre 'Harry' :");
+            for (Profesor prof : profesoresNombre) {
+                System.out.println(prof.getNombre() +" "+ prof.getApellido());
             }
 
-            System.out.println("Profesor con teléfono '0987654321': ");
-            Profesor porfTelefono = this.profesorService.consultarPorTelefono("0987654321");
-            System.out.println(porfTelefono.getNombre() +" "+ porfTelefono.getApellido());
-
-            System.out.println("Profesor con correo 'crcayambe@uce.edu.ec': ");
-            Profesor profCorreo = this.profesorService.consultarPorCorreo("crcayambe@uce.edu.ec");
-            System.out.print(profCorreo.getNombre() +" "+ profCorreo.getApellido());
-           return 0;
+            System.out.println("Total de profesores en la base de datos: " + this.profesorService.contarProfesores());
+            return 0;
+        
+        
         }
  
     }

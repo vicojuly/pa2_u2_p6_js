@@ -79,4 +79,31 @@ public class ProfesorRepositoryImpl implements ProfesorRepository{
         return miQuery.getSingleResult();
     }
 
+    @Override
+    public List<Profesor> seleccionarPorMateriaNamed(String materia) {
+        TypedQuery<Profesor> myQuery = this.em.createNamedQuery("Profesor.buscarPorMateria", Profesor.class);
+        myQuery.setParameter("materia", materia);
+        return myQuery.getResultList();
+    }
+
+    @Override
+    public List<Profesor> seleccionarPorGeneroNamed(String genero) {
+        TypedQuery<Profesor> myQuery = this.em.createNamedQuery("Profesor.buscarPorGenero", Profesor.class);
+        myQuery.setParameter("genero", genero);
+        return myQuery.getResultList();
+    }
+
+    @Override
+    public List<Profesor> seleccionarPorNombreNamed(String nombre) {
+        TypedQuery<Profesor> myQuery = this.em.createNamedQuery("Profesor.buscarPorNombre", Profesor.class);
+        myQuery.setParameter("nombre", nombre);
+        return myQuery.getResultList();
+    }
+
+    @Override
+    public Long seleccionarContar() {
+        TypedQuery<Long> myQuery = this.em.createNamedQuery("Profesor.contar", Long.class);
+        return myQuery.getSingleResult();
+    }
+
 }

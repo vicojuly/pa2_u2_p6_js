@@ -17,4 +17,10 @@ public interface ProfesorRepository {
     public Profesor seleccionarPorTelefono(String telefono);
     public Profesor seleccionarPorCorreo(String correo);
 
+    //NAMED
+    public List<Profesor> seleccionarPorMateriaNamed(String materia);
+    public List<Profesor> seleccionarPorGeneroNamed(String genero);
+    public List<Profesor> seleccionarPorNombreNamed(String nombre);
+    public Long seleccionarContar();
+
 }
