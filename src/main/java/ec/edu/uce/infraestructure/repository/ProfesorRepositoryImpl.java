@@ -7,6 +7,7 @@ import ec.edu.uce.domain.repository.ProfesorRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
@@ -104,6 +105,37 @@ public class ProfesorRepositoryImpl implements ProfesorRepository{
     public Long seleccionarContar() {
         TypedQuery<Long> myQuery = this.em.createNamedQuery("Profesor.contar", Long.class);
         return myQuery.getSingleResult();
+    }
+
+    @Override
+    public List<Profesor> seleccionarTodosNative() {
+        Query myQuery = this.em.createNativeQuery("SELECT * FROM Profesor", Profesor.class);
+        return (List<Profesor>) myQuery.getResultList();
+    }
+
+    @Override
+    public Long contarProfesorPorMateria(String materia) {
+        Query myQuery = this.em.createNativeQuery("SELECT COUNT(prof_materia) FROM Profesor WHERE prof_materia = :prof_materia", Long.class);
+        myQuery.setParameter("prof_materia", materia);
+        Number result = (Number) myQuery.getSingleResult();
+        return result.longValue();
+    }
+
+    @Override
+    public Long contarProfesorPorGenero(String genero) {
+        Query myQuery = this.em.createNativeQuery("SELECT COUNT(prof_genero) FROM Profesor WHERE prof_genero = :prof_genero", Long.class);
+        myQuery.setParameter("prof_genero", genero);
+        Number result = (Number) myQuery.getSingleResult();
+        return result.longValue();
+    }
+
+    @Override
+    public Long contarProfesorPorMateriayGenero(String materia, String genero) {
+        Query myQuery = this.em.createNativeQuery("SELECT COUNT(*) FROM Profesor WHERE prof_materia = :prof_materia AND prof_genero = :prof_genero", Long.class);
+        myQuery.setParameter("prof_materia", materia);
+        myQuery.setParameter("prof_genero", genero);
+        Number result = (Number) myQuery.getSingleResult();
+        return result.longValue();
     }
 
 }

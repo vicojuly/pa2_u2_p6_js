@@ -23,4 +23,9 @@ public interface ProfesorRepository {
     public List<Profesor> seleccionarPorNombreNamed(String nombre);
     public Long seleccionarContar();
 
+    //NATIVE
+    public List<Profesor> seleccionarTodosNative();
+    public Long contarProfesorPorMateria(String materia);
+    public Long contarProfesorPorGenero(String genero);
+    public Long contarProfesorPorMateriayGenero(String materia, String genero);
 }

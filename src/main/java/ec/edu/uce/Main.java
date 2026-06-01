@@ -43,9 +43,17 @@ public class Main {
             }
 
             System.out.println("Total de profesores en la base de datos: " + this.profesorService.contarProfesores());
+        
+            Long totalMateria = this.profesorService.totalProfesorPorMateria("Computación");
+            System.out.println("Total de profesores que imparten Computación: " + totalMateria);
+
+            Long totalGenero = this.profesorService.totalProfesorPorGenero("F");
+            System.out.println("Total de profesores de género Femenino: " + totalGenero);
+
+            Long totalMateriayGenero = this.profesorService.totalProfesorPorMateriayGenero("Computación", "M");
+            System.out.println("Total de profesores que imparten Computación y tienen género Masculino: " + totalMateriayGenero);
+
             return 0;
-        
-        
         }
  
     }

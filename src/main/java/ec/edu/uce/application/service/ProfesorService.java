@@ -71,5 +71,19 @@ public class ProfesorService {
         return this.profesorRepository.seleccionarContar();
     }
 
+    public List<Profesor> seleccionarTodosNative(){
+        return this.profesorRepository.seleccionarTodosNative();
+    }
+    public Long totalProfesorPorMateria(String materia){
+        return this.profesorRepository.contarProfesorPorMateria(materia);
+    }
+
+    public Long totalProfesorPorGenero(String genero){
+        return this.profesorRepository.contarProfesorPorGenero(genero);
+    }
+
+    public Long totalProfesorPorMateriayGenero(String materia, String genero){
+        return this.profesorRepository.contarProfesorPorMateriayGenero(materia, genero);
+    }
 
 }
