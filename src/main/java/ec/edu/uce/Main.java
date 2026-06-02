@@ -61,13 +61,44 @@ public class Main {
 
             Estudiante estCedula = this.estudianteService.consultarPorCedula("0503976441");
             System.out.println("Estudiante con cedula: "+ estCedula.toString());
-            */
+            
 
             List<Estudiante> estudiantesSelec = this.estudianteService.seleccionarTodosNative();
             for (Estudiante estudiante1 : estudiantesSelec) {
                 System.out.println("Estudiantes: " + estudiante1.toString());
             }
+                */
+            List<Estudiante> estudiantesSelec = this.estudianteService.seleccionarTodosCriteria();
+            for (Estudiante estudiante1 : estudiantesSelec) {
+                System.out.println("Estudiantes: " + estudiante1.toString());
+            }
             
+            List<Estudiante> estudiantesNombre = this.estudianteService.seleccionarPorNombreCriteria("Kevin");
+            for (Estudiante estudiante1 : estudiantesNombre) {
+                System.out.println("Estudiantes: " + estudiante1.toString());
+            }
+
+            System.out.println("SELECCIONAR DINAMICO");
+
+            List<Estudiante> dinamict = this.estudianteService.seleccionarDinamicoCriteria("Kevin", "Chicaiza");
+            for (Estudiante estudiante1 : dinamict) {
+                System.out.println("Estudiantes: " + estudiante1.toString());
+            }
+
+            List<Estudiante> dinamic1 = this.estudianteService.seleccionarDinamicoCriteria("Kevin", null);
+            for (Estudiante estudiante1 : dinamic1) {
+                System.out.println("Estudiantes: " + estudiante1.toString());
+            }
+
+            List<Estudiante> dinamic2 = this.estudianteService.seleccionarDinamicoCriteria(null, "Chicaiza");
+            for (Estudiante estudiante1 : dinamic2) {
+                System.out.println("Estudiantes: " + estudiante1.toString());
+            }
+
+            List<Estudiante> dinamic = this.estudianteService.seleccionarDinamicoCriteria(null, null);
+            for (Estudiante estudiante1 : dinamic) {
+                System.out.println("Estudiantes: " + estudiante1.toString());
+            }
             return 0;
             
         }

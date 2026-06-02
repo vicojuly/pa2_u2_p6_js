@@ -1,6 +1,7 @@
 package ec.edu.uce.infraestructure.repository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import ec.edu.uce.domain.model.Estudiante;
@@ -10,6 +11,10 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
@@ -113,5 +118,59 @@ private EntityManager em;
         Query myQuery = this.em.createNativeQuery("SELECT * FROM Estudiante", Estudiante.class);
         return (List<Estudiante>) myQuery.getResultList();
     }
+
+    //3. CRITERIA API QUERY
+    
+    @Override
+    public List<Estudiante> seleccionarTodosCriteria() {
+        //crear una instancia de la clase que será la encargada de la construcción
+        //criteria builder
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        //definir el tipo de objeto que va a retornar la consulta
+        CriteriaQuery<Estudiante> myQuery = cb.createQuery(Estudiante.class);
+        //definir las entidades del FROM en la clase root
+        Root<Estudiante> root = myQuery.from(Estudiante.class);
+        //definir con que tipo de sql se va a trabajar. En este caso SELECT
+        myQuery.select(root);
+        //aquí termina de construir el query y hay que transformarlo a un query ejecutable
+        TypedQuery<Estudiante> query = this.em.createQuery(myQuery);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Estudiante> seleccionarPorNombreCriteria(String nombre) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Estudiante> myQuery = cb.createQuery(Estudiante.class);
+        Root<Estudiante> root = myQuery.from(Estudiante.class);
+        //predicados: condiciones dentro del where
+        //se construyen a partir del constructor
+        //equal1: qué vamos a comprar, 2. contra qué voy a comparar
+        //WHERE e.apellido = "cayambe" 
+        Predicate p1 = cb.equal(root.get("nombre"), nombre);
+        myQuery.select(root).where(p1);
+        TypedQuery<Estudiante> query = this.em.createQuery(myQuery);
+        return query.getResultList();
+    }
+
+     @Override
+    public List<Estudiante> seleccionarDinamicoCriteria(String nombre, String apellido) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Estudiante> myQuery = cb.createQuery(Estudiante.class);
+        Root<Estudiante> root = myQuery.from(Estudiante.class);
+        List<Predicate> condiciones = new ArrayList<>();
+        if(nombre!= null){
+            Predicate p1 = cb.equal(root.get("nombre"), nombre);
+            condiciones.add(p1);
+        }
+        if(apellido!= null){
+            Predicate p2 = cb.equal(root.get("apellido"), apellido);
+            condiciones.add(p2);
+        }
+        myQuery.select(root).where(condiciones);
+        TypedQuery<Estudiante> query = this.em.createQuery(myQuery);
+        return query.getResultList();
+    }
+
+
 
 }

@@ -28,4 +28,9 @@ public interface EstudianteRepository {
     //NATIVE QUERY
     public List <Estudiante> seleccionarTodosNative();
     
+    //CRITERIA API QUERY
+    public List<Estudiante> seleccionarTodosCriteria();
+    public List<Estudiante> seleccionarPorNombreCriteria(String nombre);
+    public List<Estudiante> seleccionarDinamicoCriteria(String nombre, String apellido);
+    //se consulta por nombre y apellido a menos que uno de los sean nulos
     }
