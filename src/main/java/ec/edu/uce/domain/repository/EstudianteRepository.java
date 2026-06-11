@@ -12,6 +12,9 @@ public interface EstudianteRepository {
     public Estudiante seleccionarPorId(Integer id);
     public void actualizar(Estudiante estudiante);
     public void eliminar(Integer id);
+
+
+    
     public List<Estudiante> seleccionarTodos();
     public List<Estudiante> seleccionarPorNombre(String nombre);
     
