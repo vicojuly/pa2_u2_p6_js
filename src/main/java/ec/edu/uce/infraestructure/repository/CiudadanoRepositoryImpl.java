@@ -1,7 +1,5 @@
 package ec.edu.uce.infraestructure.repository;
 
-import javax.swing.text.html.parser.Entity;
-
 import ec.edu.uce.domain.model.Ciudadano;
 import ec.edu.uce.domain.repository.CiudadanoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
