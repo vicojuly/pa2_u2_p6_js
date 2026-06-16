@@ -2,6 +2,7 @@ package ec.edu.uce.domain.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,14 +24,15 @@ public class Empleado {
     @Column(name = "empl_id")
     private Integer id;
 
-    @Column(name = "empl_nombre")
+    @Column(name = "empl_salario")
     private Double salario;
 
     @Column(name = "empl_fechaIngreso")
     private LocalDateTime fechaIngreso;
 
     //para relaciones
-    @OneToOne
+    //cascade para hacer operaciones en cascada, se elimina, inserta actualiza todo en cascada
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "empl_ciudadano")
     private Ciudadano ciudadano;
 

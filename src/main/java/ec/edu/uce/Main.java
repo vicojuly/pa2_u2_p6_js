@@ -1,12 +1,11 @@
 package ec.edu.uce;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import ec.edu.uce.application.service.CiudadanoService;
-import ec.edu.uce.application.service.EstudianteService;
+import ec.edu.uce.application.service.EmpleadoService;
 import ec.edu.uce.domain.model.Ciudadano;
-import ec.edu.uce.domain.model.Estudiante;
+import ec.edu.uce.domain.model.Empleado;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -24,15 +23,25 @@ public class Main {
         @Inject
         CiudadanoService ciudadanoService;
 
+        @Inject
+        EmpleadoService empleadoService;
+
         @Override
         public int run(String... args) {
 
             Ciudadano ciudadano = new Ciudadano();
-            ciudadano.setNombre("Julia Soto");
-            ciudadano.setFechaNacimiento(LocalDateTime.of(2001, 5, 14, 6, 30));
-            ciudadanoService.crearCiudadano(ciudadano);
 
+            ciudadano.setNombre("Nueva transaccion");
+            ciudadano.setFechaNacimiento(LocalDateTime.of(1981, 5, 15, 7, 30));
+           
+            Empleado empleado = new Empleado();
+            empleado.setCiudadano(ciudadano);
+
+            empleado.setSalario(null);
+            empleado.setFechaIngreso(LocalDateTime.now());
             
+            empleadoService.crearEmpleado(empleado);
+
             return 0;
             
        }
