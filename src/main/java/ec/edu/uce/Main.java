@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import ec.edu.uce.domain.model.Expediente;
 import ec.edu.uce.domain.model.Paciente;
+import ec.edu.uce.application.service.ExpedienteService;
 import ec.edu.uce.application.service.PacienteService;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
@@ -21,27 +23,29 @@ public class Main {
     public static class App implements QuarkusApplication {
         
         @Inject
-        PacienteService PacienteService;
+        PacienteService pacienteService;
+
+        @Inject
+        ExpedienteService expedienteService;
 
         @Override
         public int run(String... args) {
 
             Paciente paciente = new Paciente();
             paciente.setNombre("Julia Soto");
+            paciente.setFechaNacimiento(LocalDate.of(2001, 5, 14));
             paciente.setCedula("0503976441");
-            paciente.setFechaNacimiento(LocalDate.of(2001, 5, 14 ));
             paciente.setSector("Latacunga");
             paciente.setTelefono("0989381398");
-            this.PacienteService.crearPaciente(paciente);
-            System.out.println(paciente.toString());
 
-            paciente.setCedula("1705632188");
-            PacienteService.actualizarPaciente(paciente);
+            Expediente expediente = new Expediente();
+            expediente.setAlergias("Polvo, Agua");
+            expediente.setObservaciones("Epinefrina a las 10am");
+            expediente.setTipoSangre("O+");
+            expediente.setPaciente(paciente);
+
+            this.expedienteService.crearExpediente(expediente);
             
-            System.out.println(paciente.toString());
-            PacienteService.seleccionarPorId(1);
-
-            System.out.println(paciente.toString() );
             return 0;
             
        }
