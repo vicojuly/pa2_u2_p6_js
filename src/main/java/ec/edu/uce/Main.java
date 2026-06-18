@@ -1,11 +1,19 @@
 package ec.edu.uce;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.arjuna.ats.internal.jdbc.drivers.modifiers.list;
 
 import ec.edu.uce.application.service.CiudadanoService;
+import ec.edu.uce.application.service.ClienteService;
 import ec.edu.uce.application.service.EmpleadoService;
 import ec.edu.uce.domain.model.Ciudadano;
+import ec.edu.uce.domain.model.Cliente;
 import ec.edu.uce.domain.model.Empleado;
+import ec.edu.uce.domain.model.Pedido;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -21,27 +29,32 @@ public class Main {
     public static class App implements QuarkusApplication {
         
         @Inject
-        CiudadanoService ciudadanoService;
-
-        @Inject
-        EmpleadoService empleadoService;
+        ClienteService clienteService;
 
         @Override
         public int run(String... args) {
 
-            Ciudadano ciudadano = new Ciudadano();
+            Cliente c = new Cliente();
+            c.setNombre("Julia");
+            c.setCedula("0500730049");
 
-            ciudadano.setNombre("Nueva transaccion");
-            ciudadano.setFechaNacimiento(LocalDateTime.of(1981, 5, 15, 7, 30));
-           
-            Empleado empleado = new Empleado();
-            empleado.setCiudadano(ciudadano);
 
-            empleado.setSalario(null);
-            empleado.setFechaIngreso(LocalDateTime.now());
+            Pedido p = new Pedido();
+            p.setTotal(Double.valueOf(10));
+            p.setCliente(c);
+            p.setFecha(LocalDate.of(2000, 1, 1));
+
+            Pedido p1 = new Pedido();
+            p1.setTotal(Double.valueOf(100));
+            p1.setCliente(c);
+            p1.setFecha(LocalDate.of(2000, 11, 11));
             
-            empleadoService.crearEmpleado(empleado);
+            List<Pedido> pedidos = new ArrayList<>();
+            pedidos.add(p1);
+            pedidos.add(p);
+            c.setPedidos(pedidos);
 
+            this.clienteService.crearCliente(c);
             return 0;
             
        }
