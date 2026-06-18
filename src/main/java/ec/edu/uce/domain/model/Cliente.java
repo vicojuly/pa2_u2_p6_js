@@ -2,8 +2,6 @@ package ec.edu.uce.domain.model;
 
 import java.util.List;
 
-import org.hibernate.annotations.Collate;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

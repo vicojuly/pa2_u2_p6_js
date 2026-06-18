@@ -1,0 +1,56 @@
+package ec.edu.uce.domain.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+
+@Table(name = "materia")
+@Entity
+public class Materia {
+
+    @Id
+    @SequenceGenerator(name = "sec_materia_generador", sequenceName = "sec_materia", allocationSize = 1) 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sec_materia_generador")
+    @Column(name = "mate_id")
+    private Integer id;
+
+    @Column(name = "mate_nombre")
+    private String nombre;
+
+    @Column(name = "mate_num_creditos")
+    private Integer numeroCreditos;
+
+    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getNumeroCreditos() {
+        return numeroCreditos;
+    }
+
+    public void setNumeroCreditos(Integer numeroCreditos) {
+        this.numeroCreditos = numeroCreditos;
+    }
+
+    
+
+
+}

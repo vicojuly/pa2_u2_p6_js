@@ -4,7 +4,6 @@ import ec.edu.uce.domain.model.Cliente;
 import ec.edu.uce.domain.repository.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.interceptor.Interceptors;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 

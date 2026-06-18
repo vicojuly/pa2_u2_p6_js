@@ -1,18 +1,10 @@
 package ec.edu.uce;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.arjuna.ats.internal.jdbc.drivers.modifiers.list;
-
-import ec.edu.uce.application.service.CiudadanoService;
 import ec.edu.uce.application.service.ClienteService;
-import ec.edu.uce.application.service.EmpleadoService;
-import ec.edu.uce.domain.model.Ciudadano;
 import ec.edu.uce.domain.model.Cliente;
-import ec.edu.uce.domain.model.Empleado;
 import ec.edu.uce.domain.model.Pedido;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
