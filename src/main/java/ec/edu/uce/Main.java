@@ -25,35 +25,12 @@ public class Main {
     }
  
     public static class App implements QuarkusApplication {
-        
-        @Inject
-        AutorService autorService;
 
 
         @Override
         public int run(String... args) {
 
-            Autor autor = new Autor();
-            autor.setNombre("Gabriel Garcia M");
-            autor.setNacionalidad("Colombia");
-        
-            Libro libro1 = new Libro();
-            libro1.setAutor(autor);
-            libro1.setAnioPublicacion(LocalDate.of(2001, 10, 1));
-            libro1.setTitulo("Cien años de soledad");
-
-            Libro libro2 = new Libro();
-            libro2.setAutor(autor);
-            libro2.setAnioPublicacion(LocalDate.of(2000, 1, 1));
-            libro2.setTitulo("Cronica de una muerte anunciada");
-
-            List<Libro> libros = new ArrayList<>();
-            libros.add(libro1);
-            libros.add(libro2);
-
-            autor.setLibros(libros);
-
-            this.autorService.crearAutor(autor);
+           
             return 0;
             
        }
