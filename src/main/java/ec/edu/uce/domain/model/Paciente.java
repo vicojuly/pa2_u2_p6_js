@@ -1,4 +1,4 @@
-package ec.edu.uce.domain.model;
+    package ec.edu.uce.domain.model;
 
 import java.time.LocalDate;
 
@@ -34,6 +34,7 @@ public class Paciente {
 
     @Column(name = "pacnte_sector")
     private String sector;
+
 
     public Paciente(){
 
