@@ -1,10 +1,11 @@
 package ec.edu.uce.domain.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,26 +15,26 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-@Table(name = "alumno")
 @Entity
+@Table(name = "alumno")
 public class Alumno {
 
     @Id
-    @SequenceGenerator(name = "sec_alumno_generador", sequenceName = "sec_alumno", allocationSize = 1) 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sec_alumno_generador")
-    @Column(name = "alumn_id")
+    @SequenceGenerator(name = "seq_alumno_generador", sequenceName = "seq_alumno", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_alumno_generador")
+    @Column(name = "alum_id")
     private Integer id;
 
-    @Column(name = "alumn_nombre")
+    @Column(name = "alum_nombre")
     private String nombre;
 
-    @ManyToMany
-    //nombre de la tabla de rompimiento: crear relación one to many-many to one
-    //se crea una tabla con foreings key de la relación
-    //dos primeras letras de las tablas, id de la tabla a referenciar
-    @JoinTable(name = "alumno_materia", joinColumns = @JoinColumn(name = "alma_id_alumno"), inverseJoinColumns = @JoinColumn(name = "alma_id_materia"))
-    private List<Materia> materia;
-
+    // Alumno va a tener muchas materias
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    // Tabla de rompimiento (manytomany)
+    @JoinTable(name = "alumno_materia", joinColumns = @JoinColumn(name = "alma_id_alumno"), 
+    inverseJoinColumns = @JoinColumn(name = "alma_id_materia"))
+    private List<Materia> materias;
+    
     public Integer getId() {
         return id;
     }
@@ -50,14 +51,18 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    public List<Materia> getMateria() {
-        return materia;
+    public List<Materia> getMaterias() {
+        return materias;
     }
 
-    public void setMateria(List<Materia> materia) {
-        this.materia = materia;
+    public void setMaterias(List<Materia> materias) {
+        this.materias = materias;
     }
 
+    @Override
+    public String toString() {
+        return "Alumno [id=" + id + ", nombre=" + nombre + ", materias=" + materias + "]";
+    }
     
 
 }

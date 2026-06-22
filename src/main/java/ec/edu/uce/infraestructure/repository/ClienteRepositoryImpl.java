@@ -1,4 +1,4 @@
-package ec.edu.uce.infraestructure;
+package ec.edu.uce.infraestructure.repository;
 
 import ec.edu.uce.domain.model.Cliente;
 import ec.edu.uce.domain.repository.ClienteRepository;
