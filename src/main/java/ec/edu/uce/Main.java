@@ -1,11 +1,14 @@
 package ec.edu.uce;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import ec.edu.uce.application.service.ClienteService;
+import java.time.LocalDateTime;
+
+import ec.edu.uce.application.service.CuentaBancariaService;
+import ec.edu.uce.application.service.TransferenciaService;
 import ec.edu.uce.domain.model.Cliente;
-import ec.edu.uce.domain.model.Pedido;
+import ec.edu.uce.domain.model.CuentaBancaria;
+import ec.edu.uce.domain.model.Transferencia;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -21,32 +24,29 @@ public class Main {
     public static class App implements QuarkusApplication {
         
         @Inject
-        ClienteService clienteService;
+        TransferenciaService transferenciaService;
+
+        @Inject
+        CuentaBancariaService cuentaBancariaService;
 
         @Override
         public int run(String... args) {
 
-            Cliente c = new Cliente();
-            c.setNombre("Julia");
-            c.setCedula("0500730049");
+            CuentaBancaria cb1 = new CuentaBancaria();
+            cb1.setNombrePropietario("Dayer");
+            cb1.setNumCuenta("343434343");
+            cb1.setMonto(new BigDecimal(100));
+            this.cuentaBancariaService.crear(cb1);
+        
+            CuentaBancaria cb2 = new CuentaBancaria();
+            cb2.setNombrePropietario("Josue");
+            cb2.setNumCuenta("3462377");
+            cb2.setMonto(new BigDecimal(50));
+            this.cuentaBancariaService.crear(cb2);
 
+            this.transferenciaService.realizarTransferencia(t, cb1, cb2);
 
-            Pedido p = new Pedido();
-            p.setTotal(Double.valueOf(10));
-            p.setCliente(c);
-            p.setFecha(LocalDate.of(2000, 1, 1));
-
-            Pedido p1 = new Pedido();
-            p1.setTotal(Double.valueOf(100));
-            p1.setCliente(c);
-            p1.setFecha(LocalDate.of(2000, 11, 11));
-            
-            List<Pedido> pedidos = new ArrayList<>();
-            pedidos.add(p1);
-            pedidos.add(p);
-            c.setPedidos(pedidos);
-
-            this.clienteService.crearCliente(c);
+            System.out.println(this.cuentaBancariaService.seleccionarPorId(1).getNombrePropietario());
             return 0;
             
        }
