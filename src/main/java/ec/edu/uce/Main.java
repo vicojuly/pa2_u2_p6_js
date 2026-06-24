@@ -40,13 +40,13 @@ public class Main {
         
             CuentaBancaria cb2 = new CuentaBancaria();
             cb2.setNombrePropietario("Josue");
-            cb2.setNumCuenta("3462377");
+            cb2.setNumCuenta("346237877");
             cb2.setMonto(new BigDecimal(50));
             this.cuentaBancariaService.crear(cb2);
 
-            this.transferenciaService.realizarTransferencia(t, cb1, cb2);
+            this.transferenciaService.realizarTransferencia(1, 2, new BigDecimal(50));
 
-            System.out.println(this.cuentaBancariaService.seleccionarPorId(1).getNombrePropietario());
+            
             return 0;
             
        }

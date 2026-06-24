@@ -27,9 +27,10 @@ public class Pedido {
     @Column(name = "pedi_fecha")
     private LocalDate fecha;
 
+    
     @ManyToOne
     private Cliente cliente;
-
+    
     public Pedido(){
 
     }
@@ -64,6 +65,7 @@ public class Pedido {
         this.fecha = fecha;
     }
 
+    
     public Cliente getCliente() {
         return cliente;
     }

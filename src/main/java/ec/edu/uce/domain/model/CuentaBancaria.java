@@ -37,7 +37,11 @@ public class CuentaBancaria {
     @Column(name = "cuen_monto")
     private BigDecimal monto;
 
-    
+    @OneToMany(mappedBy = "cuentaOrigen")
+    private List<Transferencia> transferenciasRealizadas;
+
+    @OneToMany(mappedBy = "cuentaDestino")
+    private List<Transferencia> transferenciasRecibidas;
 
     public CuentaBancaria(){
 

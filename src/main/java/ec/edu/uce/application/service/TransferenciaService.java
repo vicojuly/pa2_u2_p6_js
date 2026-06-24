@@ -2,13 +2,13 @@ package ec.edu.uce.application.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import ec.edu.uce.domain.model.CuentaBancaria;
 import ec.edu.uce.domain.model.Transferencia;
 import ec.edu.uce.domain.repository.TransferenciaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class TransferenciaService {
@@ -27,23 +27,27 @@ public class TransferenciaService {
         return this.tr.seleccionarPorId(id);
     }
 
-    public void realizarTransferencia(Integer idOrigen, Integer idDestino, BigDecimal valor){
-        Transferencia transferencia = new Transferencia();
-        transferencia.setFechaHoraTranferida(LocalDateTime.now());
-        transferencia.setValor(new BigDecimal(25));
-        
-        BigDecimal c1 = this.cbs.seleccionarPorId(idOrigen).getMonto();
-        BigDecimal c2 = this.cbs.seleccionarPorId(idDestino).getMonto();
-        if(c1.compareTo(c2) > 0){
-           BigDecimal nuevoValorOrigen = c1.subtract(transferencia.getValor());
-           BigDecimal nuevoValorDestino = transferencia.getValor().add(c2);
-           cOrigen.setMonto(nuevoValorOrigen);q
-           cDestino.setMonto(nuevoValorDestino);
-        }
-        transferencia.setCuentaOrigen(cOrigen);
-        transferencia.setCuentaDestino(cDestino);
+    @Transactional
+    public void realizarTransferencia(Integer idOrigen, Integer idDestino, BigDecimal valor) {
+    
+        CuentaBancaria cuentaOrigen = this.cbs.seleccionarPorId(idOrigen);
+        CuentaBancaria cuentaDestino = this.cbs.seleccionarPorId(idDestino);
 
-        this.crear(transferencia);
+        if (cuentaOrigen.getMonto().compareTo(valor) >= 0) {
+            
+            Transferencia transferencia = new Transferencia();
+            transferencia.setFechaHoraTranferida(LocalDateTime.now());
+            transferencia.setValor(valor); 
+            
+            BigDecimal nuevoValorOrigen = cuentaOrigen.getMonto().subtract(valor);
+            BigDecimal nuevoValorDestino = cuentaDestino.getMonto().add(valor);
+            
+            cuentaOrigen.setMonto(nuevoValorOrigen);
+            cuentaDestino.setMonto(nuevoValorDestino);
+            transferencia.setCuentaOrigen(cuentaOrigen);
+            transferencia.setCuentaDestino(cuentaDestino);
+            this.crear(transferencia);
+        }
     }
 }
 
